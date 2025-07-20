@@ -15,9 +15,10 @@ A minimal multiclient chat application written in [Zig](https://ziglang.org/), d
 ## 🚀 Build
 
 You must have Zig installed (v0.11.0 or newer recommended). Then:
+```sh
+zig build-exe main.zig -I . --name chat -O Debug
+```
 
-```bash
-zig build-exe main.zig -I . --name chat -O Debug ```
 
 
 ## TODO / Future Enhancements
