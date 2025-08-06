@@ -1,8 +1,8 @@
-# 🧵 Zig TCP Chat
+#  Zig TCP Chat
 
 A minimal multiclient chat application written in [Zig](https://ziglang.org/), designed for simplicity, speed, and learning network fundamentals.
 
-## ✨ Features
+##  Features
 
 - CLI-based chat using TCP sockets
 - Server supports multiple clients via threads
@@ -12,7 +12,7 @@ A minimal multiclient chat application written in [Zig](https://ziglang.org/), d
 
 
 
-## 🚀 Build
+##  Build
 
 You must have Zig installed (v0.11.0 or newer recommended). Then:
 ```sh
