@@ -80,7 +80,7 @@ The legacy `zchat` binary supports the old protocol-based mode:
 
 
 ##  Testing
-## 🧪 Testing
+##  Testing
 
 ### Unit Tests
 
@@ -103,7 +103,7 @@ This script will:
 4. Verify that messages are broadcast correctly
 5. Show you what each client sees
 
-**Expected output:** ✅ Both clients should see each other's messages!
+**Expected output:**  Both clients should see each other's messages!
 
 ##  TODO / Future Enhancements
 
@@ -124,7 +124,7 @@ This script will:
 - [ ] TLS/SSL encryption support
 
 
-## 🎓 Learning Goals
+##  Learning Goals
 
 - Understand how TCP sockets work using Zig's standard library
 - Design and implement a simple binary protocol for messaging
@@ -134,7 +134,7 @@ This script will:
 - Experiment with Raspberry Pi deployment and cross-compilation
 - Learn Zig's build system and module structure
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 cchat/
@@ -149,7 +149,7 @@ cchat/
 └── zig-out/bin/       # Compiled binaries
 ```
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 **Port already in use:**
 ```sh
