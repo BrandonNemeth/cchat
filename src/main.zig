@@ -34,21 +34,26 @@ pub fn main() !void {
         }
 
         const stream = try netmod.connect(args[2], 9000);
-        var writer = stream.writer();
         const username = args[3];
 
-        const stdin = std.io.getStdIn().reader();
         var input_buf: [256]u8 = undefined;
 
         while (true) {
             std.debug.print("> ", .{});
-            const line = try stdin.readUntilDelimiterOrEof(&input_buf, '\n');
-            if (line == null) break;
 
-            const msg = proto.Message.init(proto.MessageType.Chat, username, line.?);
+            const input_len = try std.posix.read(std.posix.STDIN_FILENO, &input_buf);
+            if (input_len == 0) break;
+
+            // Remove trailing newline if present
+            const line = if (input_buf[input_len - 1] == '\n')
+                input_buf[0 .. input_len - 1]
+            else
+                input_buf[0..input_len];
+
+            const msg = proto.Message.init(proto.MessageType.Chat, username, line);
             var buf: [289]u8 = undefined;
             msg.serialize(&buf);
-            try writer.writeAll(&buf);
+            _ = try stream.write(&buf);
         }
     }
 }

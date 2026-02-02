@@ -4,13 +4,12 @@ const thread = std.Thread;
 const allocator = std.heap.page_allocator;
 
 fn recv_thread(stream: *net.Stream) void {
-    var reader = stream.reader();
     var buf: [1024]u8 = undefined;
 
     while (true) {
-        const msg = reader.readUntilDelimiterOrEof(&buf, '\n') catch break;
-        if (msg == null) break;
-        std.debug.print("{s}\n", .{msg.?});
+        const n = stream.read(&buf) catch break;
+        if (n == 0) break;
+        std.debug.print("{s}", .{buf[0..n]});
     }
 
     std.debug.print("Disconnected from server.\n", .{});
@@ -37,14 +36,12 @@ pub fn main() !void {
 
     _ = try thread.spawn(.{}, recv_thread, .{&stream});
 
-    const stdin = std.io.getStdIn().reader();
-    const writer = stream.writer();
-    var buf: [1024]u8 = undefined;
+    var stdin_buf: [1024]u8 = undefined;
 
     while (true) {
-        const input = stdin.readUntilDelimiterOrEof(&buf, '\n') catch break;
-        if (input == null) break;
-        try writer.writeAll(input.?);
-        try writer.writeAll("\n");
+        const input_len = std.posix.read(std.posix.STDIN_FILENO, &stdin_buf) catch break;
+        if (input_len == 0) break;
+
+        _ = stream.write(stdin_buf[0..input_len]) catch break;
     }
 }
